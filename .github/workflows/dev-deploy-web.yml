@@ -6,19 +6,20 @@ name: FORK Deploy DEV WEB
 # events but only for the master branch
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - next
-      - main
-    paths:
-      - 'apps/web/**'
-      - 'libs/shared/**'
-#  workflow_dispatch:
-#    inputs:
-#      name:
-#        required: true
-#        default: ':'
-#
+    inputs:
+      name:
+        required: true
+        default: ':'  
+#  push:
+#    branches:
+#      - next
+#      - main
+#    paths:
+#      - 'apps/web/**'
+#      - 'libs/shared/**'
+
+
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
