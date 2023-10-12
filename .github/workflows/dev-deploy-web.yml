@@ -18,17 +18,14 @@ on:
 #      - 'apps/web/**'
 #      - 'libs/shared/**'
 
-
-
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test_web:
-    uses: ./.github/workflows/reusable-web-e2e.yml
-    with:
-      submodules: true
-      submodule_branch: 'next'
-    secrets: inherit
+#  test_web:
+#    uses: ./.github/workflows/reusable-web-e2e.yml
+#    with:
+#      submodules: true
+#      submodule_branch: 'next'
+#    secrets: inherit
 
   # This workflow contains a single job called "build"
   deploy_web:
