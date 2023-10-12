@@ -119,6 +119,17 @@ jobs:
             -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
             -f apps/web/Dockerfile .
           echo "IMAGE=ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG" >> $GITHUB_OUTPUT
+#      - id: commit
+#        uses: prompt/actions-commit-hash@v3
+#
+#      - name: Push to GitHub Packages
+#        uses: docker/build-push-action@v1
+#        with:
+#          username: nevosmicBynet
+#          password: ${{ secrets.GH_PASS }}
+#          registry: ghcr.io
+#          repository: bteam123/novu
+#          tags: ${{ steps.commit.outputs.short }}
 
       - uses: actions/upload-artifact@v3
         if: failure()
