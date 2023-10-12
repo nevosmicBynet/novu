@@ -126,7 +126,7 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           context: .
-          file: ./apps/web/Dockerfile
+          file: /apps/web/Dockerfile
           push: true
           username: nevosmicBynet
           password: ${{ secrets.GH_PASS }}
