@@ -103,42 +103,44 @@ jobs:
         working-directory: apps/web
         run: rm -rf build
 
-#      - name: Build, tag, and push image to ghcr.io
-#        id: build-image
-#        env:
-#          REGISTRY: bteam123
-#          DOCKER_NAME: novu
-#          IMAGE_TAG: ${{ github.sha }}
-#          GH_USER: nevosmicBynet
-#          GH_PASSWORD: ${{ secrets.GH_PASS }}
-#          DEPOT_PROJECT_ID: f88777ff6m
-#        run: |
-#          echo $GH_PASSWORD | docker login ghcr.io -u $GH_USER --password-stdin
-#          depot build --push \
-#            -t ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG \
-#            -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
-#            -f apps/web/Dockerfile .
-#          echo "IMAGE=ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
       - name: List Contents of current Directory
         run: ls 
       - name: List Contents of ./apps/web/ Directory
         run: ls ./apps/web/
+        
+      - name: Build, tag, and push image to ghcr.io
+        id: build-image
+        env:
+          REGISTRY: bteam123
+          DOCKER_NAME: novu
+          IMAGE_TAG: ${{ github.sha }}
+          GH_USER: nevosmicBynet
+          GH_PASSWORD: ${{ secrets.GH_PASS }}
+          DEPOT_PROJECT_ID: f88777ff6m
+        run: |
+          echo $GH_PASSWORD | docker login ghcr.io -u $GH_USER --password-stdin
+          depot build --push \
+            -t ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG \
+            -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
+            -f ./apps/web/Dockerfile .
+          echo "IMAGE=ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-      - id: commit
-        uses: prompt/actions-commit-hash@v3
 
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
-        with:
-          context: .
-          file: ./apps/web/Dockerfile
-          push: true
-          username: nevosmicBynet
-          password: ${{ secrets.GH_PASS }}
-          registry: ghcr.io
-          repository: bteam123/novu
-          tags: ${{ steps.commit.outputs.short }}
+#
+#      - id: commit
+#        uses: prompt/actions-commit-hash@v3
+#
+#      - name: Push to GitHub Packages
+#        uses: docker/build-push-action@v1
+#        with:
+#          context: .
+#          file: ./apps/web/Dockerfile
+#          push: true
+#          username: nevosmicBynet
+#          password: ${{ secrets.GH_PASS }}
+#          registry: ghcr.io
+#          repository: bteam123/novu
+#          tags: ${{ steps.commit.outputs.short }}
 
       - uses: actions/upload-artifact@v3
         if: failure()
