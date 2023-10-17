@@ -107,24 +107,27 @@ jobs:
         run: ls 
       - name: List Contents of ./apps/web/ Directory
         run: ls ./apps/web/
-        
+
+      - name: print actor
+        run: echo ${{ github.actor }}
+
       - name: Build, tag, and push image to ghcr.io
         id: build-image
         env:
           REGISTRY: bteam123
           DOCKER_NAME: novu
           IMAGE_TAG: ${{ github.sha }}
-          GH_USER: nevosmicBynet
+          GH_USER: ${{ github.actor }}
           GH_PASSWORD: ${{ secrets.GH_PASS }}
           DEPOT_PROJECT_ID: f88777ff6m
         run: |
           echo $GH_PASSWORD | docker login ghcr.io -u $GH_USER --password-stdin
-          depot build --push \
+          depot build \
             -t ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG \
+            -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
             -f /apps/web/Dockerfile .
           echo "IMAGE=ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-        # -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
+          docker push ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG
 
 #
 #      - id: commit
