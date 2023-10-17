@@ -125,7 +125,7 @@ jobs:
           docker build \
             -t ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG \
             -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
-            -f /apps/web/Dockerfile .
+            -f apps/web/Dockerfile .
           echo "IMAGE=ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG" >> $GITHUB_OUTPUT
           docker push ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG
 
