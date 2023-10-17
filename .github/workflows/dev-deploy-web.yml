@@ -119,6 +119,12 @@ jobs:
 #            -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
 #            -f apps/web/Dockerfile .
 #          echo "IMAGE=ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: List Contents of current Directory
+        run: ls 
+      - name: List Contents of ./apps/web/ Directory
+        run: ls ./apps/web/
+
       - id: commit
         uses: prompt/actions-commit-hash@v3
 
@@ -126,7 +132,7 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           context: .
-          file: /apps/web/Dockerfile
+          file: ./apps/web/Dockerfile
           push: true
           username: nevosmicBynet
           password: ${{ secrets.GH_PASS }}
