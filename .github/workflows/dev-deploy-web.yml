@@ -122,7 +122,7 @@ jobs:
           DEPOT_PROJECT_ID: f88777ff6m
         run: |
           echo $GH_PASSWORD | docker login ghcr.io -u $GH_USER --password-stdin
-          depot build \
+          docker build \
             -t ghcr.io/$REGISTRY/$DOCKER_NAME:$IMAGE_TAG \
             -t ghcr.io/$REGISTRY/$DOCKER_NAME:dev \
             -f /apps/web/Dockerfile .
