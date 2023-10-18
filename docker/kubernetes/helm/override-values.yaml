@@ -1,0 +1,24 @@
+# TODO:
+# api:
+# disable user - false
+# change web-novu to localhost:4200
+# create ingress and then change localhost:4200 to the dns
+
+api:
+  env:
+    DISABLE_USER_REGISTRATION: 'false'
+    FRONT_BASE_URL: http://localhost:4200
+
+web:
+  env:
+    env:
+      NODE_ENV: development
+
+mongodb:
+  enabled: true
+
+redis:
+  enabled: true
+
+localstack:
+  enabled: true
